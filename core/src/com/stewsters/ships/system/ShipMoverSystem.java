@@ -28,5 +28,6 @@ public class ShipMoverSystem extends EntityProcessingSystem{
         float yVec = ship.speedInKnots * MathUtils.sin(ship.facingInRadians);
         ship.pos.x += dt * xVec;
         ship.pos.y += dt * yVec;
+        e.changedInWorld();
     }
 }

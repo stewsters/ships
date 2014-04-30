@@ -22,16 +22,19 @@ public class ShipRenderSystem extends EntityProcessingSystem {
         super(Aspect.getAspectForAll(Ship.class));
 
         shapeRenderer = new ShapeRenderer();
+
+    }
+
+    @Override
+    protected void begin(){
+        // Render ship
+        Gdx.gl.glClearColor(0, 0, 0, 1);
+        Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
     }
 
     @Override
     protected void process(Entity e) {
         Ship ship = shipComponentMapper.get(e);
-        float dt = world.getDelta();
-
-        // Render ship
-        Gdx.gl.glClearColor(0, 0, 0, 1);
-        Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
         shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
         shapeRenderer.setColor(0.5f, 1f, 0.5f, 1f);

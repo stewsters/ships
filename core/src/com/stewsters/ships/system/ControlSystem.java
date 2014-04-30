@@ -7,6 +7,7 @@ import com.artemis.annotations.Mapper;
 import com.artemis.systems.EntityProcessingSystem;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
+import com.badlogic.gdx.math.Vector2;
 import com.stewsters.ships.component.Player;
 import com.stewsters.ships.component.Ship;
 
@@ -36,6 +37,17 @@ public class ControlSystem extends EntityProcessingSystem {
         } else if (Gdx.input.isKeyPressed(Input.Keys.SEMICOLON)) {
             ship.facingInRadians = ship.facingInRadians + dt * ship.maxRotationInRadians;
         }
+
+        if (Gdx.input.isKeyPressed(Input.Keys.SPACE)) {
+            // if we have a torpedo in the current slot, fire
+
+            Vector2 launchLocation = ship.pos.cpy();
+
+            Entity torpedo = world.createEntity();
+            torpedo.addComponent(new Ship(launchLocation, ship.facingInRadians, 20, 1));
+            world.addEntity(torpedo);
+        }
+        e.changedInWorld();
 
     }
 }
