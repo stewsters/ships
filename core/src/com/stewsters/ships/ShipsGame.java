@@ -6,6 +6,7 @@ import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Vector2;
+import com.stewsters.ships.component.Engine;
 import com.stewsters.ships.component.Player;
 import com.stewsters.ships.component.Ship;
 import com.stewsters.ships.system.ControlSystem;
@@ -28,6 +29,7 @@ public class ShipsGame extends ApplicationAdapter {
 
         Entity player = world.createEntity();
         player.addComponent(new Ship(new Vector2(10, 10), 0, 10, 2));
+        player.addComponent(new Engine(2f,20f,4f, 0.5f));
         player.addComponent(new Player());
         world.addEntity(player);
 
