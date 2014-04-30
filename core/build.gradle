@@ -7,3 +7,9 @@ sourceSets.main.java.srcDirs = [ "src/" ]
 eclipse.project {
     name = appName + "-core"
 }
+
+ext.artemisVersion="0.5.1-SNAPSHOT"
+
+dependencies {
+    compile "net.onedaybeard.artemis:artemis-odb:$artemisVersion"
+}
