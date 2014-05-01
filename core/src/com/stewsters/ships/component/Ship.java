@@ -6,6 +6,8 @@ import com.badlogic.gdx.math.Vector2;
 
 public class Ship extends Component {
 
+    public boolean loaded = true;
+
     public Vector2 pos;
     public float facingInRadians; // newtonian physics are for suckers
     public float speedInKnots;

@@ -1,9 +1,9 @@
 package com.stewsters.ships.component;
 
 
-import com.artemis.Component;
+import com.artemis.PooledComponent;
 
-public class Engine extends Component {
+public class Engine extends PooledComponent {
 
 
     public float accelerationInKnots;
@@ -11,10 +11,12 @@ public class Engine extends Component {
     public float maxReverseSpeedInKnots;
     public float maxRotationInRadians;
 
-    public Engine(float accelerationInKnots,float  maxForwardSpeedInKnots, float maxReverseSpeedInKnots, float maxRotationInRadians){
-        this.accelerationInKnots = 2f;
-        this.maxForwardSpeedInKnots = 20f;
-        this.maxReverseSpeedInKnots = 4f;
-        this.maxRotationInRadians = 0.5f;
+    @Override
+    protected void reset() {
+        accelerationInKnots = 0;
+        maxForwardSpeedInKnots = 0;
+        maxReverseSpeedInKnots = 0;
+        maxRotationInRadians = 0;
+
     }
 }

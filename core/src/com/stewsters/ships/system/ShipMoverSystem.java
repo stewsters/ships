@@ -9,11 +9,12 @@ import com.badlogic.gdx.math.MathUtils;
 import com.stewsters.ships.component.Ship;
 
 
-public class ShipMoverSystem extends EntityProcessingSystem{
+public class ShipMoverSystem extends EntityProcessingSystem {
 
     @Mapper
     ComponentMapper<Ship> shipComponentMapper;
 
+    @SuppressWarnings("Unchecked")
     public ShipMoverSystem() {
         super(Aspect.getAspectForAll(Ship.class));
     }

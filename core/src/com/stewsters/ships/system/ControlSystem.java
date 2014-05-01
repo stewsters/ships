@@ -9,6 +9,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.math.Vector2;
 import com.stewsters.ships.component.Engine;
+import com.stewsters.ships.component.LifeSpan;
 import com.stewsters.ships.component.Player;
 import com.stewsters.ships.component.Ship;
 
@@ -19,6 +20,7 @@ public class ControlSystem extends EntityProcessingSystem {
     @Mapper
     ComponentMapper<Engine> engineComponentMapper;
 
+    @SuppressWarnings("Unchecked")
     public ControlSystem() {
         super(Aspect.getAspectForAll(Player.class, Ship.class, Engine.class));
     }
@@ -46,15 +48,29 @@ public class ControlSystem extends EntityProcessingSystem {
             ship.facingInRadians = ship.facingInRadians + dt * engine.maxRotationInRadians;
         }
 
-        if (Gdx.input.isKeyPressed(Input.Keys.SPACE)) {
+        if (ship.loaded && Gdx.input.isKeyPressed(Input.Keys.SPACE)) {
             // if we have a torpedo in the current slot, fire
 
+            ship.loaded = false;
             Vector2 launchLocation = ship.pos.cpy();
 
             Entity torpedo = world.createEntity();
+
             torpedo.addComponent(new Ship(launchLocation, ship.facingInRadians, 20, 1));
-            torpedo.addComponent(new Engine(4f,20f,0f, 0.1f));
+
+            Engine torpedoEngine = torpedo.createComponent(Engine.class);
+            torpedoEngine.accelerationInKnots = 4f;
+            torpedoEngine.maxForwardSpeedInKnots = 20f;
+            torpedoEngine.maxReverseSpeedInKnots = 0f;
+            torpedoEngine.maxRotationInRadians = 0.1f;
+
+            torpedo.createComponent(LifeSpan.class).timeLeft = 3;
             world.addEntity(torpedo);
+
+        }
+
+        if (!ship.loaded && Gdx.input.isKeyPressed(Input.Keys.R)) {
+            ship.loaded = true;
         }
         e.changedInWorld();
 

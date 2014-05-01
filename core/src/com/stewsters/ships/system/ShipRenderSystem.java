@@ -18,7 +18,9 @@ public class ShipRenderSystem extends EntityProcessingSystem {
     ComponentMapper<Ship> shipComponentMapper;
     ShapeRenderer shapeRenderer;
 
+    @SuppressWarnings("Unchecked")
     public ShipRenderSystem() {
+
         super(Aspect.getAspectForAll(Ship.class));
 
         shapeRenderer = new ShapeRenderer();
@@ -26,7 +28,7 @@ public class ShipRenderSystem extends EntityProcessingSystem {
     }
 
     @Override
-    protected void begin(){
+    protected void begin() {
         // Render ship
         Gdx.gl.glClearColor(0, 0, 0, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
